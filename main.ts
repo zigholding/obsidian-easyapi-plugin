@@ -33,8 +33,8 @@ export default class EasyApiPlugin extends Plugin {
 
 		this.api = new EasyAPI(this.app);
 		
-		this.app.easyapi = this.api;
-		window.easyapi = this.api;
+		(this.app as any).easyapi = this.api;
+		(window as any).easyapi = this.api;
 		
 		// 添加命令
 		addCommands(this);
