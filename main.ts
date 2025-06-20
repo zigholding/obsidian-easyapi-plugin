@@ -1,21 +1,17 @@
 import {Notice, Plugin, TFile, TFolder } from 'obsidian';
 
-import { Strings } from 'src/strings';
-import {MySettings,DEFAULT_SETTINGS} from 'src/setting'
+import { Strings } from 'src/plugin/strings';
+import {MySettings,DEFAULT_SETTINGS} from 'src/plugin/setting'
 
-import { addCommands } from 'src/commands';
-import {EasyAPI} from 'src/api'
+import { addCommands } from 'src/plugin/commands';
+import {EasyAPI} from 'src/easyapi/easyapi'
 
 
 
 export default class EasyApiPlugin extends Plugin {
 	strings : Strings;
 	settings: MySettings;
-	yaml: string;
-	dialog_suggest: Function
-	dialog_prompt: Function
 	api: EasyAPI
-
 
 	async onload() {
 		
@@ -33,8 +29,8 @@ export default class EasyApiPlugin extends Plugin {
 
 		this.api = new EasyAPI(this.app);
 		
-		(this.app as any).easyapi = this.api;
 		(window as any).easyapi = this.api;
+		(window as any).ea = this.api;
 		
 		// 添加命令
 		addCommands(this);

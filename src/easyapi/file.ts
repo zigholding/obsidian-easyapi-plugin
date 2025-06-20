@@ -3,7 +3,7 @@
 
 import { App, View, WorkspaceLeaf,TFile,TFolder } from 'obsidian';
 
-import {EasyAPI} from 'src/api'
+import {EasyAPI} from 'src/easyapi/easyapi'
 
 export class File {
     app: App;

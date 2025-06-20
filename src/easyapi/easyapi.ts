@@ -2,10 +2,11 @@
 
 import { App, View, WorkspaceLeaf } from 'obsidian';
 
-import {dialog_suggest} from 'src/gui/inputSuggester'
-import {dialog_prompt} from 'src/gui/inputPrompt'
+import {dialog_suggest} from './gui/inputSuggester'
+import {dialog_prompt} from './gui/inputPrompt'
 import { EasyEditor } from './editor';
 import { File } from './file';
+import { Random } from './random';
 
 export class EasyAPI {
     app: App;
@@ -13,13 +14,14 @@ export class EasyAPI {
 	dialog_prompt: Function
     editor: EasyEditor
     file: File
-
+    random: Random
     constructor(app: App) {
         this.app = app;
         this.dialog_suggest = dialog_suggest;
 		this.dialog_prompt = dialog_prompt;
         this.editor = new EasyEditor(app,this);
         this.file = new File(app,this);
+        this.random = new Random(app,this);
     }
 
     get_plugin(name:string){
@@ -28,5 +30,23 @@ export class EasyAPI {
 
     get nc(){
         return this.get_plugin('note-chain');
+    }
+
+    get cfile(){
+        return this.app.workspace.getActiveFile();
+    }
+
+    get cfolder(){
+        return this.cfile?.parent;
+    }
+
+    get cview(){
+        let view = (this.app.workspace as any).getActiveFileView()
+		return view;
+    }
+
+    get ceditor(){
+        let editor = this.cview?.editor;
+        return editor;
     }
 }

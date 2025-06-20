@@ -2,7 +2,7 @@ import {
 	Notice, TFile
 } from 'obsidian';
 
-import EasyApiPlugin from '../main';
+import EasyApiPlugin from '../../main';
 
 const commandBuilders:Array<Function> = [
     

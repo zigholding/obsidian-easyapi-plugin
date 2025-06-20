@@ -2,7 +2,7 @@ import {
 	App, PluginSettingTab, Setting,Plugin
 } from 'obsidian';
 
-import EasyApiPlugin from '../main';
+import EasyApiPlugin from '../../main';
 
 export interface MySettings {
 }
