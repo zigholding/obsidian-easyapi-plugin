@@ -27,13 +27,50 @@ export class EasyAPI {
     get_plugin(name:string){
         return (this.app as any).plugins?.plugins[name]
     }
+    
+    get ea(){
+        return this.get_plugin('easyapi');
+    }
 
     get nc(){
         return this.get_plugin('note-chain');
     }
 
+    get ns(){
+        return this.get_plugin('note-sync');
+    }
+
+    get qa(){
+        return this.get_plugin('quickadd')?.api;
+    }
+
+    get dv(){
+        return this.get_plugin('dataview')?.api;
+    }
+
     get cfile(){
         return this.app.workspace.getActiveFile();
+    }
+
+    get cmeta(){
+        let cfile = this.cfile;
+        if(cfile){
+            return this.app.metadataCache.getFileCache(cfile)
+        }
+    }
+
+    get cfm(){
+        let cmeta = this.cmeta;
+        if(cmeta){
+            return cmeta.frontmatter;
+        }
+    }
+
+    get ccontent(){
+        let cfile = this.cfile;
+        if(cfile){
+            return this.app.vault.read(cfile);
+        }
     }
 
     get cfolder(){

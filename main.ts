@@ -5,7 +5,7 @@ import {MySettings,DEFAULT_SETTINGS} from 'src/plugin/setting'
 
 import { addCommands } from 'src/plugin/commands';
 import {EasyAPI} from 'src/easyapi/easyapi'
-
+import {MediaCardAPI} from 'src/plugin/MediaCardApi'
 
 
 export default class EasyApiPlugin extends Plugin {
@@ -22,13 +22,18 @@ export default class EasyApiPlugin extends Plugin {
 		)
 	}
 
+	MediaCardAPI(dv:object,container:Document,cover_tfile:TFile){
+		return new MediaCardAPI(this.api,dv,container,cover_tfile)
+	}
+
 	async _onload_() {
 		// 初始始化，加载中英文和参数
 		this.strings = new Strings();
 		await this.loadSettings();
 
 		this.api = new EasyAPI(this.app);
-		
+		(this.app as any).easyapi = this.api;
+		(this.app as any).ea = this.api;
 		(window as any).easyapi = this.api;
 		(window as any).ea = this.api;
 		
