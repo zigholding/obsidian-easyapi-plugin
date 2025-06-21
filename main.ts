@@ -5,7 +5,7 @@ import {MySettings,DEFAULT_SETTINGS} from 'src/plugin/setting'
 
 import { addCommands } from 'src/plugin/commands';
 import {EasyAPI} from 'src/easyapi/easyapi'
-import {MediaCardAPI} from 'src/plugin/MediaCardApi'
+import {MediaCardAPI} from 'src/plugin/MediaCardAPI'
 
 
 export default class EasyApiPlugin extends Plugin {

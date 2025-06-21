@@ -34,6 +34,19 @@ export class MediaCardAPI{
 	    return matches;
 	}
 	
+	async get_introductiom(tfile:TFile){
+		let niw = this.ea.nc.editor.get_frontmatter(tfile,'NIW');
+		if(!niw){
+			niw = await this.ea.nc.editor.remove_metadata(tfile);
+			if(niw){
+				niw = niw.replace(/\s/g,'').slice(0,240);
+			}
+		}
+		if(niw){
+			return niw.replace(/`/g,'');
+		}
+	}
+
 	async note_to_card(tfile:TFile,params={}){
 		if(!tfile){
 			return;
@@ -44,7 +57,6 @@ export class MediaCardAPI{
 		card['type'] = 'book';
 		card['title'] = tfile.basename;
 		card['url'] = tfile.basename;
-		let tstr = ''
 		let words = this.ea.nc.editor.get_frontmatter(tfile,'words');
 		if(words==null){
 		}else{
@@ -62,15 +74,9 @@ export class MediaCardAPI{
 
 		card['路径'] = tfile.parent? tfile.parent.path:tfile.path;
 
-		let niw = this.ea.nc.editor.get_frontmatter(tfile,'NIW');
-		if(!niw){
-			niw = await this.ea.nc.editor.remove_metadata(tfile);
-			if(niw){
-				niw = niw.replace(/\s/g,'').slice(0,240);
-			}
-		}
+		let niw = await this.get_introductiom(tfile);
 		if(niw){
-			card['introduction'] = niw.replace(/`/g,'');
+			card['introduction'] = niw;
 		}
 	
 		let cover = this.ea.nc.editor.get_frontmatter(tfile,'cover');
